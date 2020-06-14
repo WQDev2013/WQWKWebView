@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+            <title>Lebus</title>
+            </head>
+    <body>
+        <div style="text-align: center;font-size: 80px;margin-top: 350px">原生与JS交互测试网页</div>
+        
+        <p style="text-align:center"> <button id="btn1" type = "button" style="font-size : 25px; width:400px;height:60px" onclick = "jsToNativeFunction1()" > JS调用原生：不带参数  </button> </p>
+        
+        <p style="text-align:center"> <button id="btn2" type = "button" style="font-size : 25px; width:400px;height:60px" onclick = "jsToNativeFunction2()"> JS调用原生：带参数  </button> </p>
+        
+        <p style="text-align:center"> <button id="btn3" type = "button" style="font-size : 25px; width:400px;height:60px" onclick = "showAlert()" > 原生捕获到html的弹出框  </button> </p>
+        
+        <p style="text-align:center"> <button id="btn3" type = "button" style="font-size : 25px; width:400px;height:60px" onclick = "showAlert()" > 原生调JS,修改  </button> </p>
+        
+    </body>
+    <script type="text/javascript">
+        function jsToNativeFunction1(){
+            
+            window.webkit.messageHandlers.jsToNativeNoPrams.postMessage({})  //--固定写法
+        }
+        function jsToNativeFunction2(){
+            var name = {
+                name: "cwq",
+                age: 20
+            };
+<!--            {"params":"我是参数"}-->
+            window.webkit.messageHandlers.jsToNativeWithPrams.postMessage(name)  //--固定写法
+        }
+    function showAlert()
+    {
+        alert("被原生截获到了");
+    }
+    function receiveMsgFromNative(msg)
+    {
+        alert("收到原生的消息：" + msg)
+    }
+    </script>
+</html>
